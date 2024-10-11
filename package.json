@@ -6,7 +6,12 @@
     "build": "tsc",
     "dev": "dotenv -- nodemon",
     "lint": "eslint",
-    "prod": "dotenv -e .env.production node ./dist/server.js"
+    "prod": "dotenv -e .env.production node ./dist/server.js",
+    "create-migration": "sequelize-cli migration:generate",
+    "migrate": "dotenv -- sequelize-cli db:migrate",
+    "undo-migration": "dotenv -- sequelize-cli db:migrate:undo",
+    "prod-migrate": "dotenv -e .env.production sequelize-cli db:migrate",
+    "prod-undo-migrate": "dotenv -e .env.production sequelize-cli db:migrate:undo"
   },
   "keywords": [],
   "author": "",
@@ -37,8 +42,10 @@
     "dotenv-cli": "^7.4.2",
     "express": "^4.21.1",
     "pg": "^8.13.0",
+    "pg-hstore": "^2.3.4",
     "reflect-metadata": "^0.2.2",
     "sequelize": "^6.37.3",
+    "sequelize-cli": "^6.6.2",
     "sequelize-typescript": "^2.1.6"
   }
 }
