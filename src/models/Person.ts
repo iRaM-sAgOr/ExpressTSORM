@@ -9,7 +9,7 @@ import {
 } from "sequelize-typescript";
 
 interface PersonAttributes {
-  id: number;
+  id: string;
   name: string;
 }
 

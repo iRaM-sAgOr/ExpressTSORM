@@ -5,7 +5,7 @@ import { expressSetup } from "./utils";
 
 (async () => {
   await sequelize; // Establishes connection to the database
-  // await sequelize.sync();
+  await sequelize.sync();
 })();
 
 const app = express();
@@ -15,3 +15,5 @@ app.listen(config.port, () => {
   // Log a message when the server is successfully running
   console.log(`Server is running on http://localhost:${config.port}`);
 });
+
+export default app;

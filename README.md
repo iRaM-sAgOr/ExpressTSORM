@@ -5,3 +5,12 @@
 ```npm
 npm run create-migration -- --name <name>
 ```
+
+npm install --save-dev mocha chai @types/mocha @types/chai ts-mocha
+npm install --save-dev supertest @types/supertest
+
+npm install jsonwebtoken
+npm install --save-dev @types/jsonwebtoken
+
+npm install --save-dev sinon
+npm install --save-dev @types/sinon
