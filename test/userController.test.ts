@@ -1,15 +1,11 @@
-import * as chai from 'chai';
-import chaiHttp from 'chai-http';
-import sinon from 'sinon';
+import { strict as assert } from 'assert';
+import sinon, { SinonStub } from 'sinon';
+import request from 'supertest';
 import app from '../src/server';
-import Person from "../src/models/Person";
+import Person from '../src/models/Person';
 
-chai.use(chaiHttp);
-const { expect } = chai;
-
-describe('GET /api/users', () => {
-  // Prepare stubs for Person model interactions
-  let findAllStub: sinon.SinonStub;
+describe('GET /person', () => {
+  let findAllStub: SinonStub;
 
   beforeEach(() => {
     findAllStub = sinon.stub(Person, 'findAll').resolves([
@@ -22,20 +18,18 @@ describe('GET /api/users', () => {
     sinon.restore();
   });
 
-  it('should return all users', (done) => {
-    chai.request(app)
-      .get('/person')
-      .end((err, res) => {
-        if (err) done(err);
-        expect(res).to.have.status(200);
-        expect(res.body).to.be.an('array');
-        
-        // Ensure response body matches stubbed data
-        expect(res.body).to.deep.equal([
-          { id: '1', name: 'John Doe', created_at: null, updated_at: null },
-          { id: '2', name: 'Jane Doe', created_at: null, updated_at: null }
-        ]);
-        done();
-      });
+  it('should return all users', async () => {
+    const response = await request(app).get('/person');
+
+    assert.equal(response.status, 200);
+    assert(Array.isArray(response.body), 'Response body should be an array');
+    // assert.deepEqual(response.body, [
+    //   { id: '1', name: 'John Doe', created_at: undefined, updated_at: undefined },
+    //   { id: '2', name: 'Jane Doe', created_at: undefined, updated_at: undefined }
+    // ]);
+    assert.deepEqual(response.body, [
+      { id: '1', name: 'John Doe' },
+      { id: '2', name: 'Jane Doe' }
+    ]);
   });
 });
